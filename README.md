@@ -9,5 +9,7 @@ To Tune in your mother:
 
 [insert picture of fritz's mother here; he wouldnt let me put one in for privacy reasons, but i assure you i have one.]
 
-
+Other teams:
+"So what swerve codebase do you guys run?"
+Us:
 ![That would be your mother](https://c.tenor.com/MRDThi5BsKQAAAAC/that-would-be-your-mother-yo-mama.gif)
