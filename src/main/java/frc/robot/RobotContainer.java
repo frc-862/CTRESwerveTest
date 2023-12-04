@@ -29,7 +29,11 @@ public class RobotContainer {
   SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
   Telemetry logger = new Telemetry(MaxSpeed);
 
+  // NamedCommands.registerCommand("autoBalance", swerve.autoBalanceCommand());
+
   Command runAuto = drivetrain.getAutoPath("teehee");
+
+
 
   private void configureBindings() {
     drivetrain.setDefaultCommand( // Drivetrain will execute this command periodically
