@@ -172,3 +172,6 @@ out/
 *-window.json
 
 ctre_sim/
+networktables.json
+simgui-ds.json
+simgui.json
