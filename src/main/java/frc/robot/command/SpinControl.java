@@ -4,25 +4,41 @@
 
 package frc.robot.command;
 
-import edu.wpi.first.wpilibj2.command.Command;
+import java.util.function.DoubleSupplier;
 
-public class Spin extends Command {
+import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsytems.Spin;
+
+public class SpinControl extends Command {
+  
+  Spin spin;
+  DoubleSupplier pow;
+
   /** Creates a new Spin. */
-  public Spin() {
-    // Use addRequirements() here to declare subsystem dependencies.
+  public SpinControl(Spin spin, DoubleSupplier pow) {
+    this.spin = spin;
+    this.pow = pow;
+
+    addRequirements(spin);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    spin.stop();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    spin.setPower(pow.getAsDouble());
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    spin.stop();
+  }
 
   // Returns true when the command should end.
   @Override

@@ -4,14 +4,37 @@
 
 package frc.robot.subsytems;
 
+import java.util.function.DoubleSupplier;
+
+import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.NeutralModeValue;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.thunder.config.FalconConfig;
+import frc.thunder.shuffleboard.LightningShuffleboard;
 
 public class Spin extends SubsystemBase {
   /** Creates a new Spin. */
-  public Spin() {}
+
+  TalonFX motor;
+  DoubleSupplier pow = () -> 0;
+
+  public Spin() {
+    this.motor = FalconConfig.createMotor(10, false, 0, 0, NeutralModeValue.Coast);
+  }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    LightningShuffleboard.setDouble("Spin", "target power", pow.getAsDouble());
+
+  }
+
+  public void setPower(double pow){
+    motor.set(pow);
+    this.pow = () -> pow;
+  }
+
+  public void stop(){
+    setPower(0d);
   }
 }

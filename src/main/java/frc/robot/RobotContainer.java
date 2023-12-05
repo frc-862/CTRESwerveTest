@@ -14,7 +14,9 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.generated.TunerConstants;
+import frc.robot.Constants.TunerConstants;
+import frc.robot.subsytems.Spin;
+import frc.robot.subsytems.Swerve;
 
 public class RobotContainer {
   final double MaxSpeed = 6; // 6 meters per second desired top speed
@@ -22,14 +24,15 @@ public class RobotContainer {
 
   /* Setting up bindings for necessary control of the swerve drive platform */
   CommandXboxController joystick = new CommandXboxController(0); // My joystick
-  CommandSwerveDrivetrain drivetrain = TunerConstants.DriveTrain; // My drivetrain
-  SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric().withIsOpenLoop(true); // I want field-centric
-                                                                                            // driving in open loop
+  Swerve drivetrain = TunerConstants.DriveTrain; // My drivetrain
+  Spin spin = new Spin();
+
+  SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric().withIsOpenLoop(true); // I want field-centric driving in open loop
   SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
   SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
   Telemetry logger = new Telemetry(MaxSpeed);
 
-  // NamedCommands.registerCommand("autoBalance", swerve.autoBalanceCommand());
+  // NamedCommands.registerCommand("spin20" ? () -> new SpinControl(spin, (() -> 20)));
 
   Command runAuto = drivetrain.getAutoPath("teehee");
 
