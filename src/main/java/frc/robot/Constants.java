@@ -13,6 +13,9 @@ import frc.robot.subsytems.Swerve;
 
 public class Constants {
 
+    public static final double MaxSpeed = 6; // 6 meters per second desired top speed
+	public static final double MaxAngularRate = 2 * Math.PI; // Half a rotation per second max angular velocity TODO Figure out max rotational speed
+
     public class TunerConstants {
         // Both sets of gains need to be tuned to your individual robot
         // The steer motor uses MotionMagicVoltage control
