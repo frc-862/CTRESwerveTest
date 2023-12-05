@@ -1,0 +1,36 @@
+{
+  "version": 1.0,
+  "startingPose": null,
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "C2[3]-M-1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "C2[3]-M-2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "C2[3]-M-3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "C2[3]-M-4"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null
+}

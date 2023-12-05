@@ -131,15 +131,183 @@
     }
   ],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "Flick servo",
+      "waypointRelativePos": 0.0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Flick"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Collect 1",
+      "waypointRelativePos": 0.44999999999999996,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Ground-Collect"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "Collect"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Score 2",
+      "waypointRelativePos": 2.75,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "OTB-High"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "Spit"
+              }
+            },
+            {
+              "type": "wait",
+              "data": {
+                "waitTime": 1.0
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "Stop-Collect"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Collect 2",
+      "waypointRelativePos": 4.0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Collect"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "Ground-Collect"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Score 3",
+      "waypointRelativePos": 6.449999999999999,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "OTB-High"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "Spit"
+              }
+            },
+            {
+              "type": "wait",
+              "data": {
+                "waitTime": 1.0
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "Stop-Collect"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Hold power",
+      "waypointRelativePos": 1.3,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Hold-Power"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Hold-Power 2",
+      "waypointRelativePos": 5.35,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Hold-Power"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
+    "maxVelocity": 4.0,
     "maxAcceleration": 3,
     "maxAngularVelocity": 540,
     "maxAngularAcceleration": 720
   },
   "goalEndState": {
-    "velocity": 0,
+    "velocity": 0.0,
     "rotation": 0
   },
   "reversed": false,
