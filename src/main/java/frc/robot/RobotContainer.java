@@ -33,14 +33,14 @@ public class RobotContainer extends LightningContainer{
 
 	@Override
 	protected void configureButtonBindings() {
-		new Trigger(driver::getAButton).whileTrue(drivetrain.applyRequest(() -> brake));
-		new Trigger(driver::getBButton).whileTrue(drivetrain
-        	.applyRequest(() -> point.withModuleDirection(new Rotation2d(-driver.getLeftY(), -driver.getLeftX()))));
+		// new Trigger(driver::getAButton).whileTrue(drivetrain.applyRequest(() -> brake));
+		// new Trigger(driver::getBButton).whileTrue(drivetrain
+    //     	.applyRequest(() -> point.withModuleDirection(new Rotation2d(-driver.getLeftY(), -driver.getLeftX()))));
 		// new Trigger(driver::getXButton).onTrue(drivetrain::tareEverything); //TODO What does this do?
 
-    if (Utils.isSimulation()) {
-      drivetrain.seedFieldRelative(new Pose2d(new Translation2d(), Rotation2d.fromDegrees(90))); //This is where they had it
-    }
+    // if (Utils.isSimulation()) {
+    //   drivetrain.seedFieldRelative(new Pose2d(new Translation2d(), Rotation2d.fromDegrees(90))); //This is where they had it
+    // }
     
   }
 
