@@ -19,9 +19,6 @@ import frc.robot.subsytems.Spin;
 import frc.robot.subsytems.Swerve;
 
 public class RobotContainer {
-  final double MaxSpeed = 6; // 6 meters per second desired top speed
-  final double MaxAngularRate = 2 * Math.PI; // Half a rotation per second max angular velocity TODO Figure out max rotational speed
-
   /* Setting up bindings for necessary control of the swerve drive platform */
   CommandXboxController joystick = new CommandXboxController(0); // My joystick
   Swerve drivetrain = TunerConstants.DriveTrain; // My drivetrain
@@ -30,7 +27,7 @@ public class RobotContainer {
   SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric().withIsOpenLoop(true); // I want field-centric driving in open loop
   SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
   SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
-  Telemetry logger = new Telemetry(MaxSpeed);
+  Telemetry logger = new Telemetry(Constants.MaxSpeed);
 
   // NamedCommands.registerCommand("spin20" ? () -> new SpinControl(spin, (() -> 20)));
 
@@ -40,10 +37,10 @@ public class RobotContainer {
 
   private void configureBindings() {
     drivetrain.setDefaultCommand( // Drivetrain will execute this command periodically
-        drivetrain.applyRequest(() -> drive.withVelocityX(-MathUtil.applyDeadband(joystick.getLeftY(), 0.1) * MaxSpeed) // Drive forward with
+        drivetrain.applyRequest(() -> drive.withVelocityX(-MathUtil.applyDeadband(joystick.getLeftY(), 0.1) * Constants.MaxSpeed) // Drive forward with
                                                                                            // negative Y (forward)
-            .withVelocityY(-MathUtil.applyDeadband(joystick.getLeftX(), 0.1) * MaxSpeed) // Drive left with negative X (left)
-            .withRotationalRate(-MathUtil.applyDeadband(joystick.getRightX(), 0.1) * MaxAngularRate) // Drive counterclockwise with negative X (left)
+            .withVelocityY(-MathUtil.applyDeadband(joystick.getLeftX(), 0.1) * Constants.MaxSpeed) // Drive left with negative X (left)
+            .withRotationalRate(-MathUtil.applyDeadband(joystick.getRightX(), 0.1) * Constants.MaxAngularRate) // Drive counterclockwise with negative X (left)
         ));
 
     joystick.a().whileTrue(drivetrain.applyRequest(() -> brake));

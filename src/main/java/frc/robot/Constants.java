@@ -8,10 +8,16 @@ import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstants.SwerveModuleSte
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrainConstants;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstants;
 
-import edu.wpi.first.math.util.Units;
 import frc.robot.subsytems.Swerve;
 
 public class Constants {
+
+    public static final double MaxSpeed = 6; // 6 meters per second desired top speed
+        private static final double WHEELBASE = TunerConstants.kFrontLeftXPosInches*2; //2 * x distance from center of robot to wheel
+        public static final double MaxAngularRate = 2*Math.PI*( //convert to radians per second
+                TunerConstants.kSpeedAt12VoltsMps / // free speed
+                Math.PI*Math.sqrt(2*Math.pow(WHEELBASE, 2)) // circumference of circle with radius of wheelbase
+        );
 
     public class TunerConstants {
         // Both sets of gains need to be tuned to your individual robot
