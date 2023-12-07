@@ -53,7 +53,7 @@ public class Constants {
         private static final boolean kInvertRightSide = true;
     
         private static final String kCANbusName = "Canivore";
-        private static final int kPigeonId = 23;
+        public static final int kPigeonId = 23;
     
     
         // These are only used for simulation
@@ -133,5 +133,6 @@ public class Constants {
             //This is a magic number from gridlock, may need to be changed or removed entirely
             public static final double PROCESS_LATENCY = 0.0472; // TODO test
             public static final Translation2d FIELD_LIMIT = new Translation2d(Units.feetToMeters(54.0), Units.feetToMeters(26.0));
+            public static final Translation2d VISION_LIMIT = new Translation2d(Units.feetToMeters(9), Units.feetToMeters(5));
         }
 }

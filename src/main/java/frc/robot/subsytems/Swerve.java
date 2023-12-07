@@ -2,6 +2,7 @@ package frc.robot.subsytems;
 
 import java.util.function.Supplier;
 
+import com.ctre.phoenix6.hardware.Pigeon2;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrain;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrainConstants;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule;
@@ -24,6 +25,7 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Subsystem;
+import frc.robot.Constants.TunerConstants;
 import frc.robot.Constants.VisionConstants;
 import frc.thunder.shuffleboard.LightningShuffleboard;
 import frc.thunder.vision.Limelight;
@@ -42,6 +44,7 @@ import com.pathplanner.lib.util.ReplanningConfig;
 public class Swerve extends SwerveDrivetrain implements Subsystem {
     private final SwerveRequest.ApplyChassisSpeeds autoRequest = new SwerveRequest.ApplyChassisSpeeds();
     private Limelight[] limelights;
+    private Pigeon2 gyro;
 
     public Swerve(SwerveDrivetrainConstants driveTrainConstants, double OdometryUpdateFrequency, SwerveModuleConstants... modules) {
         super(driveTrainConstants, OdometryUpdateFrequency, modules);
@@ -50,7 +53,11 @@ public class Swerve extends SwerveDrivetrain implements Subsystem {
             new Limelight("limelight-front", "10.8.62.12")
         };
 
+        this.gyro = new Pigeon2(23); // yes i know this is hard coded shush
+
         configurePathPlanner();
+
+        gyro.setYaw(0);
 
     }
     public Swerve(SwerveDrivetrainConstants driveTrainConstants, SwerveModuleConstants... modules) {
@@ -99,4 +106,13 @@ public class Swerve extends SwerveDrivetrain implements Subsystem {
     public Command getAutoPath(String pathName) {
         return new PathPlannerAuto(pathName);
     }
+
+    public void zeroGyro() {
+        gyro.setYaw(0); //TODO Make this work, get already created pigeon from drivetrain
+    }
+
+    public void slowMode() {
+        // TODO Add multiplier to lower speed
+    }
+
 }
