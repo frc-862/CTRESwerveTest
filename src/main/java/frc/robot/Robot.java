@@ -19,9 +19,12 @@ public class Robot extends LoggedRobot {
 
     @Override
     public void robotInit() {
-        Logger.recordMetadata("ProjectName", "CTRESwerveTest");
+        Logger.recordMetadata("ProjectName", BuildConstants.MAVEN_NAME);
+        Logger.recordMetadata("GitSHA", BuildConstants.GIT_SHA);
+        Logger.recordMetadata("GitBranch", BuildConstants.GIT_BRANCH);
+        Logger.recordMetadata("Git Dirty", BuildConstants.DIRTY == 1 ? "true" : "false");
     if (isReal()) {
-        // if (true) {
+    // if (true) {
         Logger.addDataReceiver(new WPILOGWriter("/U")); // Log to a USB stick
         Logger.addDataReceiver(new NT4Publisher()); // Publish data to NetworkTables
         new PowerDistribution(1, ModuleType.kRev); // Enables power distribution logging
