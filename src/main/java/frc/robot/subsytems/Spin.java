@@ -6,12 +6,13 @@ package frc.robot.subsytems;
 
 import java.util.function.DoubleSupplier;
 
+import org.littletonrobotics.junction.Logger;
+
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.thunder.config.FalconConfig;
-import frc.thunder.shuffleboard.LightningShuffleboard;
 
 public class Spin extends SubsystemBase {
   /** Creates a new Spin. */
@@ -25,7 +26,7 @@ public class Spin extends SubsystemBase {
 
   @Override
   public void periodic() {
-    LightningShuffleboard.setDouble("Spin", "target power", pow.getAsDouble());
+    Logger.recordOutput("Spin/target power", pow.getAsDouble());
 
   }
 

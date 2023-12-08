@@ -2,6 +2,8 @@ package frc.robot.subsytems;
 
 import java.util.function.Supplier;
 
+import org.littletonrobotics.junction.Logger;
+
 import com.ctre.phoenix6.hardware.Pigeon2;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrain;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrainConstants;
@@ -27,7 +29,6 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.Constants.TunerConstants;
 import frc.robot.Constants.VisionConstants;
-import frc.thunder.shuffleboard.LightningShuffleboard;
 import frc.thunder.vision.Limelight;
 import frc.thunder.util.Pose4d;
 
@@ -81,7 +82,7 @@ public class Swerve extends SwerveDrivetrain implements Subsystem {
             addVisionMeasurement(pose.toPose2d(), Timer.getFPGATimestamp() - Units.millisecondsToSeconds(pose.getLatency()) - VisionConstants.PROCESS_LATENCY);
         }
 
-        LightningShuffleboard.setDouble("Swerve", "yaw", m_yawGetter.getValueAsDouble());
+        Logger.recordOutput("Swerve/yaw", m_yawGetter.getValueAsDouble());
     }
 
     private void configurePathPlanner() {
