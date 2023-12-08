@@ -35,8 +35,9 @@ public class Robot extends LoggedRobot {
                 System.out.println("Failed to Find a log file, not loading one");
             }
         }
+        System.out.println("Log Path: " + logPath);
 
-        if (isReal() | logPath == null) {
+        if (isReal() || logPath == null) {
             Logger.addDataReceiver(new WPILOGWriter("/U")); // Log to a USB stick
             Logger.addDataReceiver(new NT4Publisher()); // Publish data to NetworkTables
             new PowerDistribution(1, ModuleType.kRev); // Enables power distribution logging
