@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.Constants.RbootMap.CAN;
 
 public class Robot extends LoggedRobot {
     private Command m_autonomousCommand;
@@ -40,7 +41,7 @@ public class Robot extends LoggedRobot {
         if (isReal() || logPath == null) {
             Logger.addDataReceiver(new WPILOGWriter("/U")); // Log to a USB stick
             Logger.addDataReceiver(new NT4Publisher()); // Publish data to NetworkTables
-            new PowerDistribution(1, ModuleType.kRev); // Enables power distribution logging
+            new PowerDistribution(CAN.PDH, ModuleType.kRev); // Enables power distribution logging
         } else {
             setUseTiming(false); // Run as fast as possible
             Logger.setReplaySource(new WPILOGReader(logPath)); // Read replay log

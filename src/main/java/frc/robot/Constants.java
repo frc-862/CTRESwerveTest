@@ -135,4 +135,10 @@ public class Constants {
         public static final Translation2d FIELD_LIMIT = new Translation2d(Units.feetToMeters(54.0), Units.feetToMeters(26.0));
         public static final Translation2d VISION_LIMIT = new Translation2d(Units.feetToMeters(9), Units.feetToMeters(5));
     }
+
+    public class RbootMap {
+        public class CAN {
+            public static final int PDH = 1;
+        }
+    }
 }
