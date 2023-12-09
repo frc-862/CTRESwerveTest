@@ -20,12 +20,15 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.TunerConstants;
 import frc.robot.subsytems.Spin;
 import frc.robot.subsytems.Swerve;
+import frc.robot.subsytems.collector.Collector;
+import frc.robot.subsytems.collector.CollectorIOTalonFX;
 
 public class RobotContainer {
   /* Setting up bindings for necessary control of the swerve drive platform */
   XboxController driver = new XboxController(0); // My joystick
   Swerve drivetrain = TunerConstants.DriveTrain; // My drivetrain
   Spin spin = new Spin();
+  Collector collector = new Collector(new CollectorIOTalonFX());
 
   SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric().withIsOpenLoop(true); // I want field-centric driving in open loop
   SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();

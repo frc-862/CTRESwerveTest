@@ -1,8 +1,8 @@
 package frc.robot.subsytems.collector;
 
-import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Collector extends SubsystemBase {
@@ -15,6 +15,7 @@ public class Collector extends SubsystemBase {
 
     @Override
     public void periodic() {
+        CommandScheduler.getInstance().registerSubsystem(this);
         io.updateInputs(inputs);
         Logger.processInputs("Collector", inputs);
     }
