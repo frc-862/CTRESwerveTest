@@ -47,4 +47,34 @@ public class ModuleIOCTRE extends SwerveModule implements ModuleIO {
         inputs.state = getCurrentState();
     }
 
+    public static void updateInputsStatic(SwerveModule module, ModuleIOInputs inputs){
+        final TalonFX driveMotor = module.getDriveMotor();
+        final TalonFX steerMotor = module.getSteerMotor();
+        final CANcoder steerEncoder = module.getCANcoder();
+
+        final StatusSignal<Double>[] signals = (StatusSignal<Double>[]) module.getSignals(); //Hopefully this will be made public in the future
+
+        final StatusSignal<Double> drivePosition = signals[0];
+        final StatusSignal<Double> driveVelocity = signals[1];
+        final StatusSignal<Double> driveAppliedVolts = driveMotor.getMotorVoltage();
+        final StatusSignal<Double> driveCurrent = driveMotor.getStatorCurrent();
+
+        final StatusSignal<Double> steerPosition = signals[2];
+        final StatusSignal<Double> steerVelocity = signals[3];
+        final StatusSignal<Double> steerAppliedVolts = steerMotor.getMotorVoltage();
+        final StatusSignal<Double> steerCurrent = steerMotor.getStatorCurrent();
+
+        BaseStatusSignal.refreshAll(signals);
+        inputs.drivePositionDeg = drivePosition.getValueAsDouble() * 360d;
+        inputs.driveVelocityRPM = driveVelocity.getValueAsDouble() / 60d;
+        inputs.driveAppliedVolts = driveAppliedVolts.getValueAsDouble();
+        inputs.driveCurrentAmps = driveCurrent.getValueAsDouble();
+        inputs.steerPositionDeg = steerPosition.getValueAsDouble() * 360d;
+        inputs.steerVelocityRPM = steerVelocity.getValueAsDouble() / 60d;
+        inputs.steerAppliedVolts = steerAppliedVolts.getValueAsDouble();
+        inputs.steerCurrentAmps = steerCurrent.getValueAsDouble();
+
+        inputs.position = module.getPosition(true);
+        inputs.state = module.getCurrentState();
+    }
 }

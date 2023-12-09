@@ -1,67 +1,49 @@
-package frc.robot.subsytems;
+package frc.robot.subsytems.swerve;
 
 import java.util.function.Supplier;
 
 import org.littletonrobotics.junction.Logger;
 
-import com.ctre.phoenix6.hardware.Pigeon2;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrain;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrainConstants;
-import com.ctre.phoenix6.mechanisms.swerve.SwerveModule;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstants;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
-import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
-import com.pathplanner.lib.util.PIDConstants;
-import com.pathplanner.lib.util.ReplanningConfig;
-
-import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
-import edu.wpi.first.math.kinematics.SwerveModulePosition;
-import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.Field2d;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.Subsystem;
-import frc.robot.Constants.TunerConstants;
-import frc.robot.Constants.VisionConstants;
-import frc.thunder.vision.Limelight;
-import frc.thunder.util.Pose4d;
-
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
 
-/**
- * Class that extends the Phoenix SwerveDrivetrain class and implements subsystem
- * so it can be used in command-based projects easily.
- */
-public class Swerve extends SwerveDrivetrain implements Subsystem {
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.Subsystem;
+import frc.robot.Constants.VisionConstants;
+import frc.thunder.util.Pose4d;
+import frc.thunder.vision.Limelight;
+
+public class NewSwerve extends SwerveDrivetrain implements Subsystem {
     private final SwerveRequest.ApplyChassisSpeeds autoRequest = new SwerveRequest.ApplyChassisSpeeds();
     private Limelight[] limelights;
-    private Pigeon2 gyro;
+    private final ModuleIOInputsAutoLogged[] inputs = new ModuleIOInputsAutoLogged[4];
 
-    public Swerve(SwerveDrivetrainConstants driveTrainConstants, double OdometryUpdateFrequency, SwerveModuleConstants... modules) {
+
+    public NewSwerve(SwerveDrivetrainConstants driveTrainConstants, double OdometryUpdateFrequency, SwerveModuleConstants... modules) {
         super(driveTrainConstants, OdometryUpdateFrequency, modules);
+        CommandScheduler.getInstance().registerSubsystem(this);
         this.limelights = new Limelight[] {
-            new Limelight("limelight-back", "10.8.62.11"),
-            new Limelight("limelight-front", "10.8.62.12")
+            // new Limelight("limelight-back", "10.8.62.11"),
+            // new Limelight("limelight-front", "10.8.62.12")
         };
-
-        this.gyro = new Pigeon2(23); // yes i know this is hard coded shush
 
         configurePathPlanner();
 
-        gyro.setYaw(0);
+        m_pigeon2.setYaw(0);
 
     }
-    public Swerve(SwerveDrivetrainConstants driveTrainConstants, SwerveModuleConstants... modules) {
+    public NewSwerve(SwerveDrivetrainConstants driveTrainConstants, SwerveModuleConstants... modules) {
         this(driveTrainConstants, 250, modules);
     }
 
@@ -73,16 +55,6 @@ public class Swerve extends SwerveDrivetrain implements Subsystem {
     public void simulationPeriodic() {
         /* Assume  */
         updateSimState(0.02, 12);
-    }
-
-    @Override
-    public void periodic() {
-        for (Limelight limelight : Limelight.filterLimelights(limelights)) {
-            Pose4d pose = limelight.getAlliancePose();
-            addVisionMeasurement(pose.toPose2d(), Timer.getFPGATimestamp() - Units.millisecondsToSeconds(pose.getLatency()) - VisionConstants.PROCESS_LATENCY);
-        }
-
-        Logger.recordOutput("Swerve/yaw", m_yawGetter.getValueAsDouble());
     }
 
     private void configurePathPlanner() {
@@ -109,11 +81,20 @@ public class Swerve extends SwerveDrivetrain implements Subsystem {
     }
 
     public void zeroGyro() {
-        gyro.setYaw(0); //TODO Make this work, get already created pigeon from drivetrain
+        m_pigeon2.setYaw(0); //TODO Make this work, get already created pigeon from drivetrain
     }
 
-    public void slowMode() {
-        // TODO Add multiplier to lower speed
-    }
+    @Override
+    public void periodic() {
+        for (Limelight limelight : Limelight.filterLimelights(limelights)) {
+            Pose4d pose = limelight.getAlliancePose();
+            addVisionMeasurement(pose.toPose2d(), Timer.getFPGATimestamp() - Units.millisecondsToSeconds(pose.getLatency()) - VisionConstants.PROCESS_LATENCY);
+        }
 
+        Logger.recordOutput("Swerve/yaw", m_yawGetter.getValueAsDouble());
+        for (int i = 0; i < Modules.length; ++i) {
+            ModuleIOCTRE.updateInputsStatic(Modules[i], inputs[i]);
+            Logger.processInputs("Swerve/Module " + i, inputs[i]);
+        }
+    }
 }

@@ -19,9 +19,10 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.TunerConstants;
 import frc.robot.subsytems.Spin;
-import frc.robot.subsytems.Swerve;
 import frc.robot.subsytems.collector.Collector;
 import frc.robot.subsytems.collector.CollectorIOTalonFX;
+import frc.robot.subsytems.swerve.Swerve;
+import frc.robot.subsytems.swerve.Telemetry;
 
 public class RobotContainer {
   /* Setting up bindings for necessary control of the swerve drive platform */
