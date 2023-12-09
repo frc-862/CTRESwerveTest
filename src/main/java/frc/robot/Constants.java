@@ -13,11 +13,11 @@ import frc.robot.subsytems.Swerve;
 public class Constants {
 
     public static final double MaxSpeed = 6; // 6 meters per second desired top speed
-        private static final double WHEELBASE = TunerConstants.kFrontLeftXPosInches*2; //2 * x distance from center of robot to wheel
-        public static final double MaxAngularRate = 2*Math.PI*( //convert to radians per second
-                TunerConstants.kSpeedAt12VoltsMps / // free speed
-                Math.PI*Math.sqrt(2*Math.pow(WHEELBASE, 2)) // circumference of circle with radius of wheelbase
-        );
+    private static final double WHEELBASE = TunerConstants.kFrontLeftXPosInches*2; //2 * x distance from center of robot to wheel
+    public static final double MaxAngularRate = 2*Math.PI*( //convert to radians per second
+        TunerConstants.kSpeedAt12VoltsMps / // free speed
+        Math.PI*Math.sqrt(2*Math.pow(WHEELBASE, 2)) // circumference of circle with radius of wheelbase
+    );
 
     public class TunerConstants {
         // Both sets of gains need to be tuned to your individual robot
@@ -130,9 +130,9 @@ public class Constants {
     }
 
     public class VisionConstants {
-            //This is a magic number from gridlock, may need to be changed or removed entirely
-            public static final double PROCESS_LATENCY = 0.0472; // TODO test
-            public static final Translation2d FIELD_LIMIT = new Translation2d(Units.feetToMeters(54.0), Units.feetToMeters(26.0));
-            public static final Translation2d VISION_LIMIT = new Translation2d(Units.feetToMeters(9), Units.feetToMeters(5));
-        }
+        //This is a magic number from gridlock, may need to be changed or removed entirely
+        public static final double PROCESS_LATENCY = 0.0472; // TODO test
+        public static final Translation2d FIELD_LIMIT = new Translation2d(Units.feetToMeters(54.0), Units.feetToMeters(26.0));
+        public static final Translation2d VISION_LIMIT = new Translation2d(Units.feetToMeters(9), Units.feetToMeters(5));
+    }
 }
