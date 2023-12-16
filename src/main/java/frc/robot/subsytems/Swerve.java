@@ -25,8 +25,10 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Subsystem;
+import frc.robot.Constants;
 import frc.robot.Constants.TunerConstants;
 import frc.robot.Constants.VisionConstants;
+import frc.robot.Constants.RobotMap.CAN;
 import frc.thunder.shuffleboard.LightningShuffleboard;
 import frc.thunder.vision.Limelight;
 import frc.thunder.util.Pose4d;
@@ -44,7 +46,6 @@ import com.pathplanner.lib.util.ReplanningConfig;
 public class Swerve extends SwerveDrivetrain implements Subsystem {
     private final SwerveRequest.ApplyChassisSpeeds autoRequest = new SwerveRequest.ApplyChassisSpeeds();
     private Limelight[] limelights;
-    private Pigeon2 gyro;
 
     public Swerve(SwerveDrivetrainConstants driveTrainConstants, double OdometryUpdateFrequency, SwerveModuleConstants... modules) {
         super(driveTrainConstants, OdometryUpdateFrequency, modules);
@@ -53,11 +54,10 @@ public class Swerve extends SwerveDrivetrain implements Subsystem {
             new Limelight("limelight-front", "10.8.62.12")
         };
 
-        this.gyro = new Pigeon2(23); // yes i know this is hard coded shush
 
         configurePathPlanner();
 
-        gyro.setYaw(0);
+        zeroGyro();
 
     }
     public Swerve(SwerveDrivetrainConstants driveTrainConstants, SwerveModuleConstants... modules) {
@@ -108,11 +108,7 @@ public class Swerve extends SwerveDrivetrain implements Subsystem {
     }
 
     public void zeroGyro() {
-        gyro.setYaw(0); //TODO Make this work, get already created pigeon from drivetrain
-    }
-
-    public void slowMode() {
-        // TODO Add multiplier to lower speed
+        m_pigeon2.setYaw(0);
     }
 
 }
