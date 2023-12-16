@@ -6,8 +6,11 @@ package frc.robot.command;
 
 import java.util.function.DoubleSupplier;
 
+import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.math.MathUtil;
+import frc.robot.Constants;
 import frc.robot.Constants.DrivetrainConstatnts;
 import frc.robot.subsytems.Swerve;
 
@@ -18,6 +21,8 @@ public class SlowMode extends Command {
 	DoubleSupplier LeftX;
 	DoubleSupplier LeftY;
 	DoubleSupplier RightX;
+
+   SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric();
 
   public SlowMode(DoubleSupplier LeftX, DoubleSupplier LeftY, DoubleSupplier RightX, Swerve drivetrain) {
 	this.LeftX = LeftX;
@@ -34,10 +39,11 @@ public class SlowMode extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-	// drivetrain.applyRequest(() -> drive.withVelocityX(-MathUtil.applyDeadband(LeftY.getAsDouble(), 0.1) * DrivetrainConstatnts.MaxSpeed) // Drive forward with negative Y (forward)
-    //         .withVelocityY(-MathUtil.applyDeadband(LeftX.getAsDouble(), 0.1) * DrivetrainConstatnts.MaxSpeed) // Drive left with negative X (left)
-    //         .withRotationalRate(-MathUtil.applyDeadband(RightX.getAsDouble(), 0.1) * DrivetrainConstatnts.MaxAngularRate *  DrivetrainConstatnts.RotationMultipler) // Drive counterclockwise with negative X (left)
-    //     );
+    System.out.println("MAde it");
+    drivetrain.applyRequest(() -> drive.withVelocityX(-MathUtil.applyDeadband(LeftY.getAsDouble(), 0.1) * DrivetrainConstatnts.MaxSpeed) // Drive forward with negative Y (forward)
+            .withVelocityY(-MathUtil.applyDeadband(LeftX.getAsDouble(), 0.1) * DrivetrainConstatnts.MaxSpeed) // Drive left with negative X (left)
+            .withRotationalRate(-MathUtil.applyDeadband(RightX.getAsDouble(), 0.1) * DrivetrainConstatnts.MaxAngularRate *  DrivetrainConstatnts.RotationMultipler) // Drive counterclockwise with negative X (left)
+        );
   }
 
   // Called once the command ends or is interrupted.

@@ -30,7 +30,7 @@ public class RobotContainer {
   Spin spin = new Spin();
 
 
-//   SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric().withIsOpenLoop(true); //TODO I want field-centric driving in open loop
+  SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric(); //TODO I want field-centric driving in open loop   WE NEED TO FIGURE OUT WHAT Change beacuse with open loop is gone
   SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
   SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
   Telemetry logger = new Telemetry(DrivetrainConstatnts.MaxSpeed);
@@ -42,17 +42,20 @@ public class RobotContainer {
 
 
 
-  private void configureBindings() {
-    // drivetrain.setDefaultCommand(new SlowMode(() -> driver.getLeftX(), () -> driver.getLeftY(), () -> driver.getRightY()));// Drivetrain will execute this command periodically
-// 	drivetrain.applyRequest(() -> drive.withVelocityX(-MathUtil.applyDeadband(driver.getLeftY(), 0.1) * DrivetrainConstatnts.MaxSpeed) // Drive forward with negative Y (forward)
-// 	.withVelocityY(-MathUtil.applyDeadband(driver.getLeftX(), 0.1) * DrivetrainConstatnts.MaxSpeed) // Drive left with negative X (left)
-// 	.withRotationalRate(-MathUtil.applyDeadband(driver.getRightX(), 0.1) * DrivetrainConstatnts.MaxAngularRate *  DrivetrainConstatnts.RotationMultipler) // Drive counterclockwise with negative X (left)
-// ));
-
-	new Trigger(driver::getAButton).whileTrue(drivetrain.applyRequest(() -> brake));
-	new Trigger(driver::getBButton).whileTrue(drivetrain.applyRequest(() -> point.withModuleDirection(new Rotation2d(-driver.getLeftY(), -driver.getLeftX()))));
-	new Trigger(driver::getXButton).onTrue(new InstantCommand(() -> drivetrain.zeroGyro())); // TODO create function to reset Heading
-	// new Trigger(driver::getRightBumper).onTrue(new InstantCommand(() -> drivetrain.slowMode())); // TODO create function 
+  	private void configureBindings() {
+  		// drivetrain.setDefaultCommand(new SlowMode(() -> driver.getLeftX(), () -> driver.getLeftY(), () -> driver.getRightY(), drivetrain));// TODO thisdoesnt curently work
+	
+		  drivetrain.setDefaultCommand( // Drivetrain will execute this command periodically
+		  drivetrain.applyRequest(() -> drive.withVelocityX(-MathUtil.applyDeadband(driver.getLeftY(), 0.1) * DrivetrainConstatnts.MaxSpeed) // Drive forward with
+																							 // negative Y (forward)
+			  .withVelocityY(-MathUtil.applyDeadband(driver.getLeftX(), 0.1) * DrivetrainConstatnts.MaxSpeed) // Drive left with negative X (left)
+			  .withRotationalRate(-MathUtil.applyDeadband(driver.getRightX(), 0.1) * DrivetrainConstatnts.MaxAngularRate) // Drive counterclockwise with negative X (left)
+		  ));
+		
+		new Trigger(driver::getAButton).whileTrue(drivetrain.applyRequest(() -> brake));
+		new Trigger(driver::getBButton).whileTrue(drivetrain.applyRequest(() -> point.withModuleDirection(new Rotation2d(-driver.getLeftY(), -driver.getLeftX()))));
+		new Trigger(driver::getXButton).onTrue(new InstantCommand(() -> drivetrain.zeroGyro())); // TODO create function to reset Heading
+		// new Trigger(driver::getRightBumper).onTrue(new InstantCommand(() -> drivetrain.slowMode())); // TODO create function 
   
     if (Utils.isSimulation()) {
       drivetrain.seedFieldRelative(new Pose2d(new Translation2d(), Rotation2d.fromDegrees(90)));
