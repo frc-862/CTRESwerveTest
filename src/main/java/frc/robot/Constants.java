@@ -6,12 +6,12 @@ import frc.robot.subsytems.swerve.Swerve;
 
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstantsFactory;
-import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstants.SteerFeedbackType;
+import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstants.SwerveModuleSteerFeedbackType;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrainConstants;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstants;
 
 import frc.robot.Constants.RobotMap.CAN;
-import frc.robot.subsytems.Swerve;
+import frc.robot.subsytems.swerve.Swerve;
 
 public class Constants {
 
@@ -81,7 +81,7 @@ public class Constants {
                 .withSpeedAt12VoltsMps(kSpeedAt12VoltsMps)
                 .withSteerInertia(kSteerInertia)
                 .withDriveInertia(kDriveInertia)
-                .withFeedbackSource(SteerFeedbackType.FusedCANcoder)
+                .withFeedbackSource(SwerveModuleSteerFeedbackType.FusedCANcoder)
                 .withCouplingGearRatio(kCoupleRatio)
                 .withSteerMotorInverted(kSteerMotorReversed);
     
@@ -123,14 +123,11 @@ public class Constants {
         public static final Translation2d VISION_LIMIT = new Translation2d(Units.feetToMeters(9), Units.feetToMeters(5));
     }
 
-    public class RbootMap {
-        public class CAN {
-            public static final int PDH = 1;
-        }
-
 	public static class RobotMap {
 		
 		public static class CAN {
+            public static final int PDH = 1;
+
 			private static final int kFrontLeftDriveMotorId = 1;
         	private static final int kFrontLeftSteerMotorId = 2;
         	private static final int kFrontLeftEncoderId = 31;

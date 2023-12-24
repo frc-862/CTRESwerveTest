@@ -56,8 +56,6 @@ public class Swerve extends SwerveDrivetrain implements Subsystem {
             // new Limelight("limelight-front", "10.8.62.12")
         };
 
-        this.gyro = this.m_pigeon2;
-
         configurePathPlanner();
 
         zeroGyro();
