@@ -2,7 +2,6 @@ package frc.robot.subsytems.swerve;
 
 import org.littletonrobotics.junction.AutoLog;
 
-import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 
 public interface ModuleIO {
@@ -22,7 +21,6 @@ public interface ModuleIO {
         public double steerEncoderVelocityRPM = 0d;
         public String steerEncoderMagnetHealth = "";
 
-        public SwerveModulePosition position = new SwerveModulePosition();
         public SwerveModuleState state = new SwerveModuleState();
 
         public boolean runningOpenLoop;
