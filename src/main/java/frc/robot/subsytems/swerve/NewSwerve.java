@@ -93,7 +93,7 @@ public class NewSwerve extends SwerveDrivetrain implements Subsystem {
 
         Logger.recordOutput("Swerve/yaw", m_yawGetter.getValueAsDouble());
         for (int i = 0; i < Modules.length; ++i) {
-            ModuleIOCTRE.updateInputsStatic(Modules[i], inputs[i]);
+            ((ThunderModule) Modules[i]).updateInputs(inputs[i]);
             Logger.processInputs("Swerve/Module " + i, inputs[i]);
         }
     }

@@ -2,10 +2,6 @@ package frc.robot.subsytems.swerve;
 
 import org.littletonrobotics.junction.AutoLog;
 
-import com.ctre.phoenix6.BaseStatusSignal;
-import com.ctre.phoenix6.hardware.CANcoder;
-import com.ctre.phoenix6.hardware.TalonFX;
-
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 
@@ -22,9 +18,14 @@ public interface ModuleIO {
         public double steerAppliedVolts = 0d;
         public double steerCurrentAmps = 0d;
 
+        public double steerEncoderPositionDeg = 0d;
+        public double steerEncoderVelocityRPM = 0d;
+        public String steerEncoderMagnetHealth = "";
+
         public SwerveModulePosition position = new SwerveModulePosition();
         public SwerveModuleState state = new SwerveModuleState();
-        public BaseStatusSignal[] statusSignals = new BaseStatusSignal[0];
+
+        public boolean runningOpenLoop;
     }
 
     public default void updateInputs(ModuleIOInputs inputs) {}
