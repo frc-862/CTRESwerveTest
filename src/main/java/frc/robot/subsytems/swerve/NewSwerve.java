@@ -7,7 +7,6 @@ import org.littletonrobotics.junction.Logger;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrain;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrainConstants;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstants;
-import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
@@ -25,7 +24,7 @@ import frc.thunder.util.Pose4d;
 import frc.thunder.vision.Limelight;
 
 public class NewSwerve extends SwerveDrivetrain implements Subsystem {
-    private final SwerveRequest.ApplyChassisSpeeds autoRequest = new SwerveRequest.ApplyChassisSpeeds();
+    private final ThunderSwerveRequest.ApplyChassisSpeeds autoRequest = new ThunderSwerveRequest.ApplyChassisSpeeds();
     private Limelight[] limelights;
     private final ModuleIOInputsAutoLogged[] inputs = new ModuleIOInputsAutoLogged[4];
 
@@ -47,7 +46,7 @@ public class NewSwerve extends SwerveDrivetrain implements Subsystem {
         this(driveTrainConstants, 250, modules);
     }
 
-    public Command applyRequest(Supplier<SwerveRequest> requestSupplier) {
+    public Command applyRequest(Supplier<ThunderSwerveRequest> requestSupplier) {
         return run(() -> this.setControl(requestSupplier.get()));
     }
 

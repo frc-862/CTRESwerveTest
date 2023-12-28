@@ -5,7 +5,6 @@
 package frc.robot;
 
 import com.ctre.phoenix6.Utils;
-import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -24,6 +23,7 @@ import frc.robot.subsytems.collector.Collector;
 import frc.robot.subsytems.collector.CollectorIOTalonFX;
 import frc.robot.subsytems.swerve.Swerve;
 import frc.robot.subsytems.swerve.Telemetry;
+import frc.robot.subsytems.swerve.ThunderSwerveRequest;
 
 public class RobotContainer {
   /* Setting up bindings for necessary control of the swerve drive platform */
@@ -33,9 +33,9 @@ public class RobotContainer {
   Collector collector = new Collector(new CollectorIOTalonFX());
 
 
-  SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric(); //TODO I want field-centric driving in open loop   WE NEED TO FIGURE OUT WHAT Change beacuse with open loop is gone
-  SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
-  SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
+  ThunderSwerveRequest.FieldCentric drive = new ThunderSwerveRequest.FieldCentric(); //TODO I want field-centric driving in open loop   WE NEED TO FIGURE OUT WHAT Change beacuse with open loop is gone
+  ThunderSwerveRequest.SwerveDriveBrake brake = new ThunderSwerveRequest.SwerveDriveBrake();
+  ThunderSwerveRequest.PointWheelsAt point = new ThunderSwerveRequest.PointWheelsAt();
   Telemetry logger = new Telemetry(DrivetrainConstatnts.MaxSpeed);
 
   // NamedCommands.registerCommand("spin20" ? () -> new SpinControl(spin, (() -> 20)));
