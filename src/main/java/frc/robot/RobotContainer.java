@@ -19,7 +19,6 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.DrivetrainConstatnts;
 import frc.robot.Constants.TunerConstants;
-import frc.robot.command.SlowMode;
 import frc.robot.subsytems.Spin;
 import frc.robot.subsytems.collector.Collector;
 import frc.robot.subsytems.collector.CollectorIOTalonFX;
