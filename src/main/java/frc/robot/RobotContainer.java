@@ -30,7 +30,7 @@ public class RobotContainer {
   /* Setting up bindings for necessary control of the swerve drive platform */
   XboxController driver = new XboxController(ControllerConstants.DriverControllerPort); // My joystick
   NewSwerve drivetrain = TunerConstants.DriveTrain; // My drivetrain
-}
+
   Spin spin = new Spin();
   Collector collector = new Collector(new CollectorIOTalonFX());
 
@@ -50,7 +50,7 @@ public class RobotContainer {
   	private void configureBindings() {
   		// drivetrain.setDefaultCommand(new SlowMode(() -> driver.getLeftX(), () -> driver.getLeftY(), () -> driver.getRightY(), drivetrain));// TODO thisdoesnt curently work
 	
-		  drivetrain.setDefaultCommand( // Drivetrain will execute this command periodically
+		  drivetrain.setDefaultCommand( //Drivetrain will execute this command periodically
 		  drivetrain.applyRequest(() -> drive.withVelocityX(-MathUtil.applyDeadband(driver.getLeftY(), 0.1) * DrivetrainConstatnts.MaxSpeed) // Drive forward with
 																							 // negative Y (forward)
 			  .withVelocityY(-MathUtil.applyDeadband(driver.getLeftX(), 0.1) * DrivetrainConstatnts.MaxSpeed) // Drive left with negative X (left)
