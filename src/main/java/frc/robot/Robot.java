@@ -23,9 +23,10 @@ public class Robot extends LoggedRobot {
     @Override
     public void robotInit() {
         Logger.recordMetadata("ProjectName", BuildConstants.MAVEN_NAME);
+        Logger.recordMetadata("BuildDate", BuildConstants.BUILD_DATE);
         Logger.recordMetadata("GitSHA", BuildConstants.GIT_SHA);
+        Logger.recordMetadata("GitDate", BuildConstants.GIT_DATE);
         Logger.recordMetadata("GitBranch", BuildConstants.GIT_BRANCH);
-        // Logger.recordMetadata("Git Dirty", BuildConstants.DIRTY == 1 ? "true" : "false");
         switch (BuildConstants.DIRTY) {
             case 0:
                 Logger.recordMetadata("GitDirty", "All Changes Committed");
