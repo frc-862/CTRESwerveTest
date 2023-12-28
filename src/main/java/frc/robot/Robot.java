@@ -31,7 +31,7 @@ public class Robot extends LoggedRobot {
 
         if (!isReal()) {
             try {
-                logPath = LogFileUtil.findReplayLog(); // Pull the replay log from AdvantageScope (or prompt the user)
+                // logPath = LogFileUtil.findReplayLog(); // Pull the replay log from AdvantageScope (or prompt the user)
             } catch (NoSuchElementException e) {
                 System.out.println("Failed to Find a log file, not loading one");
             }
