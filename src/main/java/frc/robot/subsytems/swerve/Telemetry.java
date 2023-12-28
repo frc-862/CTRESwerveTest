@@ -62,10 +62,10 @@ public class Telemetry {
 
     /* Accept the swerve drive state and telemeterize it to smartdashboard */
     public void telemeterize(SwerveDriveState state) {
-        Logger.recordOutput("Swerve/State", state);
+        // Logger.recordOutput("Swerve/State", state);
         /* Telemeterize the pose */
         Pose2d pose = state.Pose;
-        Logger.recordOutput("Swerve/Pose", pose);
+        // Logger.recordOutput("Swerve/Pose", pose);
 
         /* Telemeterize the robot's general speeds */
         double currentTime = Utils.getCurrentTimeSeconds();
@@ -76,10 +76,10 @@ public class Telemetry {
 
         Translation2d velocities = distanceDiff.div(diffTime);
 
-        Logger.recordOutput("Swerve/Velocity", velocities.getNorm());
-        Logger.recordOutput("Swerve/VelocityX", velocities.getX());
-        Logger.recordOutput("Swerve/VelocityY", velocities.getY());
-        Logger.recordOutput("Swerve/OdometryPeriod", state.OdometryPeriod);
+        // Logger.recordOutput("Swerve/Velocity", velocities.getNorm());
+        // Logger.recordOutput("Swerve/VelocityX", velocities.getX());
+        // Logger.recordOutput("Swerve/VelocityY", velocities.getY());
+        // Logger.recordOutput("Swerve/OdometryPeriod", state.OdometryPeriod);
 
         /* Telemeterize the module's states */
         for (int i = 0; i < 4; ++i) {
@@ -87,7 +87,7 @@ public class Telemetry {
             m_moduleDirections[i].setAngle(state.ModuleStates[i].angle);
             m_moduleSpeeds[i].setLength(state.ModuleStates[i].speedMetersPerSecond / (2 * MaxSpeed));
 
-            Logger.recordOutput("Swerve/Modules/" + i, m_moduleMechanisms[i]);
+        //     Logger.recordOutput("Swerve/Modules/" + i, m_moduleMechanisms[i]);
         }
     }
 }
