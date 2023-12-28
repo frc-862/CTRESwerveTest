@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
+import frc.robot.subsytems.swerve.NewSwerve;
 import frc.robot.subsytems.swerve.Swerve;
 
 import com.ctre.phoenix6.configs.Slot0Configs;
@@ -11,7 +12,6 @@ import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrainConstants;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstants;
 
 import frc.robot.Constants.RobotMap.CAN;
-import frc.robot.subsytems.swerve.Swerve;
 
 public class Constants {
 
@@ -112,7 +112,7 @@ public class Constants {
         private static final SwerveModuleConstants BackRight = ConstantCreator.createModuleConstants(
                 CAN.kBackRightSteerMotorId, CAN.kBackRightDriveMotorId, CAN.kBackRightEncoderId, kBackRightEncoderOffset, Units.inchesToMeters(kBackRightXPosInches), Units.inchesToMeters(kBackRightYPosInches), kInvertRightSide);
     
-        public static final Swerve DriveTrain = new Swerve(DrivetrainConstants, FrontLeft,
+        public static final NewSwerve DriveTrain = new NewSwerve(DrivetrainConstants, FrontLeft,
                 FrontRight, BackLeft, BackRight);
     }
 
