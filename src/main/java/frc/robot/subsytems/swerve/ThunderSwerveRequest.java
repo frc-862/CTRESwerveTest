@@ -11,7 +11,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 
 public interface ThunderSwerveRequest extends SwerveRequest {
 
-    public class SwerveDriveBrake extends SwerveRequest.SwerveDriveBrake  {
+    public class SwerveDriveBrake extends SwerveRequest.SwerveDriveBrake implements ThunderSwerveRequest {
         @Override
         public StatusCode apply(SwerveControlRequestParameters parameters, SwerveModule... modulesToApply) {
 
@@ -29,8 +29,7 @@ public interface ThunderSwerveRequest extends SwerveRequest {
          * @param driveRequestType The type of control request to use for the drive motor
          * @return this request
          */
-        @Override
-        public SwerveDriveBrake withDriveRequestType(SwerveModule.DriveRequestType driveRequestType) {
+        public ThunderSwerveRequest.SwerveDriveBrake withDriveRequestType(SwerveModule.DriveRequestType driveRequestType) {
             this.DriveRequestType = driveRequestType;
             return this;
         }
@@ -40,13 +39,13 @@ public interface ThunderSwerveRequest extends SwerveRequest {
          * @param steerRequestType The type of control request to use for the steer motor
          * @return this request
          */
-        public SwerveDriveBrake withSteerRequestType(SwerveModule.SteerRequestType steerRequestType) {
+        public ThunderSwerveRequest.SwerveDriveBrake withSteerRequestType(SwerveModule.SteerRequestType steerRequestType) {
             this.SteerRequestType = steerRequestType;
             return this;
         }
     }
 
-    public class FieldCentric extends SwerveRequest.FieldCentric {
+    public class FieldCentric extends SwerveRequest.FieldCentric implements ThunderSwerveRequest {
         @Override
         public StatusCode apply(SwerveControlRequestParameters parameters, SwerveModule... modulesToApply) {
             double toApplyX = VelocityX;
@@ -161,7 +160,7 @@ public interface ThunderSwerveRequest extends SwerveRequest {
         }
     }
 
-    public class FieldCentricFacingAngle extends SwerveRequest.FieldCentricFacingAngle {
+    public class FieldCentricFacingAngle extends SwerveRequest.FieldCentricFacingAngle implements ThunderSwerveRequest {
         @Override
         public StatusCode apply(SwerveControlRequestParameters parameters, SwerveModule... modulesToApply) {
             double toApplyX = VelocityX;
@@ -199,7 +198,7 @@ public interface ThunderSwerveRequest extends SwerveRequest {
          * @param velocityX Velocity in the X direction, in m/s
          * @return this request
          */
-        public FieldCentricFacingAngle withVelocityX(double velocityX) {
+        public ThunderSwerveRequest.FieldCentricFacingAngle withVelocityX(double velocityX) {
             this.VelocityX = velocityX;
             return this;
         }
@@ -212,7 +211,7 @@ public interface ThunderSwerveRequest extends SwerveRequest {
          * @param velocityY Velocity in the Y direction, in m/s
          * @return this request
          */
-        public FieldCentricFacingAngle withVelocityY(double velocityY) {
+        public ThunderSwerveRequest.FieldCentricFacingAngle withVelocityY(double velocityY) {
             this.VelocityY = velocityY;
             return this;
         }
@@ -226,7 +225,7 @@ public interface ThunderSwerveRequest extends SwerveRequest {
          * @param targetDirection Desired direction to face
          * @return this request
          */
-        public FieldCentricFacingAngle withTargetDirection(Rotation2d targetDirection) {
+        public ThunderSwerveRequest.FieldCentricFacingAngle withTargetDirection(Rotation2d targetDirection) {
             this.TargetDirection = targetDirection;
             return this;
         }
@@ -237,7 +236,7 @@ public interface ThunderSwerveRequest extends SwerveRequest {
          * @param deadband Allowable deadband of the request
          * @return this request
          */
-        public FieldCentricFacingAngle withDeadband(double deadband) {
+        public ThunderSwerveRequest.FieldCentricFacingAngle withDeadband(double deadband) {
             this.Deadband = deadband;
             return this;
         }
@@ -247,7 +246,7 @@ public interface ThunderSwerveRequest extends SwerveRequest {
          * @param rotationalDeadband Rotational deadband of the request
          * @return this request
          */
-        public FieldCentricFacingAngle withRotationalDeadband(double rotationalDeadband) {
+        public ThunderSwerveRequest.FieldCentricFacingAngle withRotationalDeadband(double rotationalDeadband) {
             this.RotationalDeadband = rotationalDeadband;
             return this;
         }
@@ -258,7 +257,7 @@ public interface ThunderSwerveRequest extends SwerveRequest {
          * @param driveRequestType The type of control request to use for the drive motor
          * @return this request
          */
-        public FieldCentricFacingAngle withDriveRequestType(SwerveModule.DriveRequestType driveRequestType) {
+        public ThunderSwerveRequest.FieldCentricFacingAngle withDriveRequestType(SwerveModule.DriveRequestType driveRequestType) {
             this.DriveRequestType = driveRequestType;
             return this;
         }
@@ -268,7 +267,7 @@ public interface ThunderSwerveRequest extends SwerveRequest {
          * @param steerRequestType The type of control request to use for the steer motor
          * @return this request
          */
-        public FieldCentricFacingAngle withSteerRequestType(SwerveModule.SteerRequestType steerRequestType) {
+        public ThunderSwerveRequest.FieldCentricFacingAngle withSteerRequestType(SwerveModule.SteerRequestType steerRequestType) {
             this.SteerRequestType = steerRequestType;
             return this;
         }
@@ -276,7 +275,7 @@ public interface ThunderSwerveRequest extends SwerveRequest {
 
     //No logging added for idle
 
-    public class PointWheelsAt extends SwerveRequest.PointWheelsAt {
+    public class PointWheelsAt extends SwerveRequest.PointWheelsAt implements ThunderSwerveRequest {
         @Override
         public StatusCode apply(SwerveControlRequestParameters parameters, SwerveModule... modulesToApply) {
 
@@ -295,7 +294,7 @@ public interface ThunderSwerveRequest extends SwerveRequest {
          * @param moduleDirection Direction to point the modules toward
          * @return this request
          */
-        public PointWheelsAt withModuleDirection(Rotation2d moduleDirection) {
+        public ThunderSwerveRequest.PointWheelsAt withModuleDirection(Rotation2d moduleDirection) {
             this.ModuleDirection = moduleDirection;
             return this;
         }
@@ -306,7 +305,7 @@ public interface ThunderSwerveRequest extends SwerveRequest {
          * @param driveRequestType The type of control request to use for the drive motor
          * @return this request
          */
-        public PointWheelsAt withDriveRequestType(SwerveModule.DriveRequestType driveRequestType) {
+        public ThunderSwerveRequest.PointWheelsAt withDriveRequestType(SwerveModule.DriveRequestType driveRequestType) {
             this.DriveRequestType = driveRequestType;
             return this;
         }
@@ -316,13 +315,13 @@ public interface ThunderSwerveRequest extends SwerveRequest {
          * @param steerRequestType The type of control request to use for the steer motor
          * @return this request
          */
-        public PointWheelsAt withSteerRequestType(SwerveModule.SteerRequestType steerRequestType) {
+        public ThunderSwerveRequest.PointWheelsAt withSteerRequestType(SwerveModule.SteerRequestType steerRequestType) {
             this.SteerRequestType = steerRequestType;
             return this;
         }
     }
 
-    public class RobotCentric extends SwerveRequest.RobotCentric {
+    public class RobotCentric extends SwerveRequest.RobotCentric implements ThunderSwerveRequest {
         @Override
         public StatusCode apply(SwerveControlRequestParameters parameters, SwerveModule... modulesToApply) {
             double toApplyX = VelocityX;
@@ -354,7 +353,7 @@ public interface ThunderSwerveRequest extends SwerveRequest {
          * @param velocityX Velocity in the X direction, in m/s
          * @return this request
          */
-        public RobotCentric withVelocityX(double velocityX) {
+        public ThunderSwerveRequest.RobotCentric withVelocityX(double velocityX) {
             this.VelocityX = velocityX;
             return this;
         }
@@ -367,7 +366,7 @@ public interface ThunderSwerveRequest extends SwerveRequest {
          * @param velocityY Velocity in the Y direction, in m/s
          * @return this request
          */
-        public RobotCentric withVelocityY(double velocityY) {
+        public ThunderSwerveRequest.RobotCentric withVelocityY(double velocityY) {
             this.VelocityY = velocityY;
             return this;
         }
@@ -380,7 +379,7 @@ public interface ThunderSwerveRequest extends SwerveRequest {
          * @param rotationalRate Angular rate to rotate at, in radians per second
          * @return this request
          */
-        public RobotCentric withRotationalRate(double rotationalRate) {
+        public ThunderSwerveRequest.RobotCentric withRotationalRate(double rotationalRate) {
             this.RotationalRate = rotationalRate;
             return this;
         }
@@ -391,7 +390,7 @@ public interface ThunderSwerveRequest extends SwerveRequest {
          * @param deadband Allowable deadband of the request
          * @return this request
          */
-        public RobotCentric withDeadband(double deadband) {
+        public ThunderSwerveRequest.RobotCentric withDeadband(double deadband) {
             this.Deadband = deadband;
             return this;
         }
@@ -401,7 +400,7 @@ public interface ThunderSwerveRequest extends SwerveRequest {
          * @param rotationalDeadband Rotational deadband of the request
          * @return this request
          */
-        public RobotCentric withRotationalDeadband(double rotationalDeadband) {
+        public ThunderSwerveRequest.RobotCentric withRotationalDeadband(double rotationalDeadband) {
             this.RotationalDeadband = rotationalDeadband;
             return this;
         }
@@ -412,7 +411,7 @@ public interface ThunderSwerveRequest extends SwerveRequest {
          * @param driveRequestType The type of control request to use for the drive motor
          * @return this request
          */
-        public RobotCentric withDriveRequestType(SwerveModule.DriveRequestType driveRequestType) {
+        public ThunderSwerveRequest.RobotCentric withDriveRequestType(SwerveModule.DriveRequestType driveRequestType) {
             this.DriveRequestType = driveRequestType;
             return this;
         }
@@ -422,13 +421,13 @@ public interface ThunderSwerveRequest extends SwerveRequest {
          * @param steerRequestType The type of control request to use for the steer motor
          * @return this request
          */
-        public RobotCentric withSteerRequestType(SwerveModule.SteerRequestType steerRequestType) {
+        public ThunderSwerveRequest.RobotCentric withSteerRequestType(SwerveModule.SteerRequestType steerRequestType) {
             this.SteerRequestType = steerRequestType;
             return this;
         }
     }
 
-    public class ApplyChassisSpeeds extends SwerveRequest.ApplyChassisSpeeds {
+    public class ApplyChassisSpeeds extends SwerveRequest.ApplyChassisSpeeds implements ThunderSwerveRequest {
         @Override
         public StatusCode apply(SwerveControlRequestParameters parameters, SwerveModule... modulesToApply) {
             var states = parameters.kinematics.toSwerveModuleStates(Speeds, CenterOfRotation);
@@ -445,7 +444,7 @@ public interface ThunderSwerveRequest extends SwerveRequest {
          * @param speeds Chassis speeds to apply to the drivetrain
          * @return this request
          */
-        public ApplyChassisSpeeds withSpeeds(ChassisSpeeds speeds) {
+        public ThunderSwerveRequest.ApplyChassisSpeeds withSpeeds(ChassisSpeeds speeds) {
             this.Speeds = speeds;
             return this;
         }
@@ -455,7 +454,7 @@ public interface ThunderSwerveRequest extends SwerveRequest {
          * @param centerOfRotation Center of rotation to rotate around
          * @return this request
          */
-        public ApplyChassisSpeeds withCenterOfRotation(Translation2d centerOfRotation) {
+        public ThunderSwerveRequest.ApplyChassisSpeeds withCenterOfRotation(Translation2d centerOfRotation) {
             this.CenterOfRotation = centerOfRotation;
             return this;
         }
@@ -466,7 +465,7 @@ public interface ThunderSwerveRequest extends SwerveRequest {
          * @param driveRequestType The type of control request to use for the drive motor
          * @return this request
          */
-        public ApplyChassisSpeeds withDriveRequestType(SwerveModule.DriveRequestType driveRequestType) {
+        public ThunderSwerveRequest.ApplyChassisSpeeds withDriveRequestType(SwerveModule.DriveRequestType driveRequestType) {
             this.DriveRequestType = driveRequestType;
             return this;
         }
@@ -476,7 +475,7 @@ public interface ThunderSwerveRequest extends SwerveRequest {
          * @param steerRequestType The type of control request to use for the steer motor
          * @return this request
          */
-        public ApplyChassisSpeeds withSteerRequestType(SwerveModule.SteerRequestType steerRequestType) {
+        public ThunderSwerveRequest.ApplyChassisSpeeds withSteerRequestType(SwerveModule.SteerRequestType steerRequestType) {
             this.SteerRequestType = steerRequestType;
             return this;
         }
