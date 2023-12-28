@@ -26,7 +26,12 @@ import frc.thunder.vision.Limelight;
 public class NewSwerve extends SwerveDrivetrain implements Subsystem {
     private final ThunderSwerveRequest.ApplyChassisSpeeds autoRequest = new ThunderSwerveRequest.ApplyChassisSpeeds();
     private Limelight[] limelights;
-    private final ModuleIOInputsAutoLogged[] inputs = new ModuleIOInputsAutoLogged[4];
+    private final ModuleIOInputsAutoLogged[] inputs = {
+        new ModuleIOInputsAutoLogged(),
+        new ModuleIOInputsAutoLogged(),
+        new ModuleIOInputsAutoLogged(),
+        new ModuleIOInputsAutoLogged()
+    };
 
 
     public NewSwerve(SwerveDrivetrainConstants driveTrainConstants, double OdometryUpdateFrequency, SwerveModuleConstants... modules) {
@@ -97,4 +102,5 @@ public class NewSwerve extends SwerveDrivetrain implements Subsystem {
             Logger.processInputs("Swerve/Module " + i, inputs[i]);
         }
     }
+
 }

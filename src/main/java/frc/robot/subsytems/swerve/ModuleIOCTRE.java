@@ -1,7 +1,5 @@
 package frc.robot.subsytems.swerve;
 
-import org.littletonrobotics.junction.Logger;
-
 import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.hardware.CANcoder;
@@ -9,10 +7,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule;
 import com.ctre.phoenix6.signals.MagnetHealthValue;
 
-import edu.wpi.first.math.kinematics.SwerveModuleState;
-
 public class ModuleIOCTRE implements ModuleIO {
-    SwerveModuleState lastState;
     boolean runningOpenLoop;
 
     private final TalonFX driveMotor;
@@ -72,8 +67,6 @@ public class ModuleIOCTRE implements ModuleIO {
         inputs.steerEncoderPositionDeg = steerEncoderPosition.getValueAsDouble() * 360d;
         inputs.steerEncoderVelocityRPM = steerEncoderVelocity.getValueAsDouble() / 60d;
         inputs.steerEncoderMagnetHealth = steerEncoderAppliedVolts.getValue().toString();
-
-        inputs.state = lastState;
 
         inputs.runningOpenLoop = runningOpenLoop;
     }

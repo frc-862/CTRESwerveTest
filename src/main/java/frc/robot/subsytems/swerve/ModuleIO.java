@@ -21,8 +21,6 @@ public interface ModuleIO {
         public double steerEncoderVelocityRPM = 0d;
         public String steerEncoderMagnetHealth = "";
 
-        public SwerveModuleState state = new SwerveModuleState();
-
         public boolean runningOpenLoop;
     }
 
