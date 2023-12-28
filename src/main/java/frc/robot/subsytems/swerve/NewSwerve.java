@@ -85,7 +85,7 @@ public class NewSwerve extends SwerveDrivetrain implements Subsystem {
     }
 
     public void zeroGyro() {
-        m_pigeon2.setYaw(0); //TODO Make this work, get already created pigeon from drivetrain
+        m_pigeon2.setYaw(0);
     }
 
     @Override
