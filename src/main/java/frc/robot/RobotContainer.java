@@ -21,6 +21,7 @@ import frc.robot.Constants.TunerConstants;
 import frc.robot.subsytems.Spin;
 import frc.robot.subsytems.collector.Collector;
 import frc.robot.subsytems.collector.CollectorIOTalonFX;
+import frc.robot.subsytems.swerve.NewSwerve;
 import frc.robot.subsytems.swerve.Swerve;
 import frc.robot.subsytems.swerve.Telemetry;
 import frc.robot.subsytems.swerve.ThunderSwerveRequest;
@@ -28,7 +29,8 @@ import frc.robot.subsytems.swerve.ThunderSwerveRequest;
 public class RobotContainer {
   /* Setting up bindings for necessary control of the swerve drive platform */
   XboxController driver = new XboxController(ControllerConstants.DriverControllerPort); // My joystick
-  Swerve drivetrain = TunerConstants.DriveTrain; // My drivetrain
+  NewSwerve drivetrain = TunerConstants.DriveTrain; // My drivetrain
+}
   Spin spin = new Spin();
   Collector collector = new Collector(new CollectorIOTalonFX());
 
@@ -36,7 +38,7 @@ public class RobotContainer {
   ThunderSwerveRequest.FieldCentric drive = new ThunderSwerveRequest.FieldCentric(); //TODO I want field-centric driving in open loop   WE NEED TO FIGURE OUT WHAT Change beacuse with open loop is gone
   ThunderSwerveRequest.SwerveDriveBrake brake = new ThunderSwerveRequest.SwerveDriveBrake();
   ThunderSwerveRequest.PointWheelsAt point = new ThunderSwerveRequest.PointWheelsAt();
-  Telemetry logger = new Telemetry(DrivetrainConstatnts.MaxSpeed);
+  // Telemetry logger = new Telemetry(DrivetrainConstatnts.MaxSpeed);
 
   // NamedCommands.registerCommand("spin20" ? () -> new SpinControl(spin, (() -> 20)));
 //   NamedCommands.registerCommand("Flick", swerve.autoBalanceCommand());
@@ -63,7 +65,7 @@ public class RobotContainer {
     if (Utils.isSimulation()) {
       drivetrain.seedFieldRelative(new Pose2d(new Translation2d(), Rotation2d.fromDegrees(90)));
     }
-    drivetrain.registerTelemetry(logger::telemeterize);
+    // drivetrain.registerTelemetry(logger::telemeterize);
   }
 
   public RobotContainer() {
