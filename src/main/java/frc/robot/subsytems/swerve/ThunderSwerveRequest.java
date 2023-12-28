@@ -50,7 +50,7 @@ public interface ThunderSwerveRequest extends SwerveRequest {
         }
     }
 
-    public class FieldCentricFacingAngle implements SwerveRequest {
+    public class FieldCentricFacingAngle extends SwerveRequest.FieldCentricFacingAngle {
         @Override
         public StatusCode apply(SwerveControlRequestParameters parameters, SwerveModule... modulesToApply) {
             double toApplyX = VelocityX;
@@ -81,5 +81,55 @@ public interface ThunderSwerveRequest extends SwerveRequest {
         }
     }
 
-    
+    //No logging added for idle
+
+    public class PointWheelsAt extends SwerveRequest.PointWheelsAt {
+        @Override
+        public StatusCode apply(SwerveControlRequestParameters parameters, SwerveModule... modulesToApply) {
+
+            for (int i = 0; i < modulesToApply.length; ++i) {
+                SwerveModuleState state = new SwerveModuleState(0, ModuleDirection);
+                ((ThunderSwerveModule) modulesToApply[i]).apply(i, state, DriveRequestType, SteerRequestType);
+            }
+
+            return StatusCode.OK;
+        }
+    }
+
+    public class RobotCentric extends SwerveRequest.RobotCentric {
+        @Override
+        public StatusCode apply(SwerveControlRequestParameters parameters, SwerveModule... modulesToApply) {
+            double toApplyX = VelocityX;
+            double toApplyY = VelocityY;
+            double toApplyOmega = RotationalRate;
+            if (Math.sqrt(toApplyX * toApplyX + toApplyY * toApplyY) < Deadband) {
+                toApplyX = 0;
+                toApplyY = 0;
+            }
+            if (Math.abs(toApplyOmega) < RotationalDeadband) {
+                toApplyOmega = 0;
+            }
+            ChassisSpeeds speeds = new ChassisSpeeds(toApplyX, toApplyY, toApplyOmega);
+
+            var states = parameters.kinematics.toSwerveModuleStates(speeds, new Translation2d());
+
+            for (int i = 0; i < modulesToApply.length; ++i) {
+                ((ThunderSwerveModule) modulesToApply[i]).apply(i, states[i], DriveRequestType, SteerRequestType);
+            }
+
+            return StatusCode.OK;
+        }
+    }
+
+    public class ApplyChassisSpeeds extends SwerveRequest.ApplyChassisSpeeds {
+        @Override
+        public StatusCode apply(SwerveControlRequestParameters parameters, SwerveModule... modulesToApply) {
+            var states = parameters.kinematics.toSwerveModuleStates(Speeds, CenterOfRotation);
+            for (int i = 0; i < modulesToApply.length; ++i) {
+                ((ThunderSwerveModule) modulesToApply[i]).apply(i, states[i], DriveRequestType, SteerRequestType);
+            }
+
+            return StatusCode.OK;
+        }
+    }
 }
