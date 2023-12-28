@@ -25,7 +25,18 @@ public class Robot extends LoggedRobot {
         Logger.recordMetadata("ProjectName", BuildConstants.MAVEN_NAME);
         Logger.recordMetadata("GitSHA", BuildConstants.GIT_SHA);
         Logger.recordMetadata("GitBranch", BuildConstants.GIT_BRANCH);
-        Logger.recordMetadata("Git Dirty", BuildConstants.DIRTY == 1 ? "true" : "false");
+        // Logger.recordMetadata("Git Dirty", BuildConstants.DIRTY == 1 ? "true" : "false");
+        switch (BuildConstants.DIRTY) {
+            case 0:
+                Logger.recordMetadata("GitDirty", "All Changes Committed");
+                break;
+            case 1:
+                Logger.recordMetadata("GitDirty", "Uncommitted Changes");
+                break;
+            default:
+                Logger.recordMetadata("GitDirty", "Unknown");
+                break;
+        }
 
         String logPath = null;
 
@@ -39,7 +50,8 @@ public class Robot extends LoggedRobot {
         System.out.println("Log Path: " + logPath);
 
         if (isReal() || logPath == null) {
-            Logger.addDataReceiver(new WPILOGWriter("/U")); // Log to a USB stick
+            // Logger.addDataReceiver(new WPILOGWriter("/U")); // Log to a USB stick
+            Logger.addDataReceiver(new WPILOGWriter());
             Logger.addDataReceiver(new NT4Publisher()); // Publish data to NetworkTables
             new PowerDistribution(CAN.PDH, ModuleType.kRev); // Enables power distribution logging
         } else {

@@ -18,12 +18,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.DrivetrainConstatnts;
 import frc.robot.Constants.TunerConstants;
-import frc.robot.subsytems.Spin;
-import frc.robot.subsytems.collector.Collector;
-import frc.robot.subsytems.collector.CollectorIOTalonFX;
 import frc.robot.subsytems.swerve.NewSwerve;
-import frc.robot.subsytems.swerve.Swerve;
-import frc.robot.subsytems.swerve.Telemetry;
+import frc.robot.subsytems.swerve.NewTelemetry;
 import frc.robot.subsytems.swerve.ThunderSwerveRequest;
 
 public class RobotContainer {
@@ -31,14 +27,14 @@ public class RobotContainer {
   XboxController driver = new XboxController(ControllerConstants.DriverControllerPort); // My joystick
   NewSwerve drivetrain = TunerConstants.DriveTrain; // My drivetrain
 
-  Spin spin = new Spin();
-  Collector collector = new Collector(new CollectorIOTalonFX());
+  // Spin spin = new Spin();
+  // Collector collector = new Collector(new CollectorIOTalonFX());
 
 
   ThunderSwerveRequest.FieldCentric drive = new ThunderSwerveRequest.FieldCentric(); //TODO I want field-centric driving in open loop   WE NEED TO FIGURE OUT WHAT Change beacuse with open loop is gone
   ThunderSwerveRequest.SwerveDriveBrake brake = new ThunderSwerveRequest.SwerveDriveBrake();
   ThunderSwerveRequest.PointWheelsAt point = new ThunderSwerveRequest.PointWheelsAt();
-  // Telemetry logger = new Telemetry(DrivetrainConstatnts.MaxSpeed);
+  NewTelemetry logger = new NewTelemetry();
 
   // NamedCommands.registerCommand("spin20" ? () -> new SpinControl(spin, (() -> 20)));
 //   NamedCommands.registerCommand("Flick", swerve.autoBalanceCommand());
@@ -65,7 +61,7 @@ public class RobotContainer {
     if (Utils.isSimulation()) {
       drivetrain.seedFieldRelative(new Pose2d(new Translation2d(), Rotation2d.fromDegrees(90)));
     }
-    // drivetrain.registerTelemetry(logger::telemeterize);
+    drivetrain.registerTelemetry(logger::telemeterize);
   }
 
   public RobotContainer() {
