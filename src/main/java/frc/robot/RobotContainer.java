@@ -5,6 +5,7 @@
 package frc.robot;
 
 import com.ctre.phoenix6.Utils;
+import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -16,25 +17,24 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ControllerConstants;
-import frc.robot.Constants.DrivetrainConstatnts;
+import frc.robot.Constants.DrivetrainConstants;
 import frc.robot.Constants.TunerConstants;
-import frc.robot.subsytems.swerve.NewSwerve;
-import frc.robot.subsytems.swerve.NewTelemetry;
-import frc.robot.subsytems.swerve.ThunderSwerveRequest;
+import frc.robot.subsytems.swerve.Swerve;
+import frc.robot.subsytems.swerve.Telemetry;
 
 public class RobotContainer {
   /* Setting up bindings for necessary control of the swerve drive platform */
   XboxController driver = new XboxController(ControllerConstants.DriverControllerPort); // My joystick
-  NewSwerve drivetrain = TunerConstants.DriveTrain; // My drivetrain
+  Swerve drivetrain = TunerConstants.DriveTrain; // My drivetrain
 
   // Spin spin = new Spin();
   // Collector collector = new Collector(new CollectorIOTalonFX());
 
 
-  ThunderSwerveRequest.FieldCentric drive = new ThunderSwerveRequest.FieldCentric(); //TODO I want field-centric driving in open loop   WE NEED TO FIGURE OUT WHAT Change beacuse with open loop is gone
-  ThunderSwerveRequest.SwerveDriveBrake brake = new ThunderSwerveRequest.SwerveDriveBrake();
-  ThunderSwerveRequest.PointWheelsAt point = new ThunderSwerveRequest.PointWheelsAt();
-  NewTelemetry logger = new NewTelemetry();
+  SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric(); //TODO I want field-centric driving in open loop   WE NEED TO FIGURE OUT WHAT Change beacuse with open loop is gone
+  SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
+  SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
+  Telemetry logger = new Telemetry();
 
   // NamedCommands.registerCommand("spin20" ? () -> new SpinControl(spin, (() -> 20)));
 //   NamedCommands.registerCommand("Flick", swerve.autoBalanceCommand());
@@ -47,10 +47,10 @@ public class RobotContainer {
   		// drivetrain.setDefaultCommand(new SlowMode(() -> driver.getLeftX(), () -> driver.getLeftY(), () -> driver.getRightY(), drivetrain));// TODO thisdoesnt curently work
 	
 		  drivetrain.setDefaultCommand( //Drivetrain will execute this command periodically
-		  drivetrain.applyRequest(() -> drive.withVelocityX(-MathUtil.applyDeadband(driver.getLeftY(), 0.1) * DrivetrainConstatnts.MaxSpeed) // Drive forward with
+		  drivetrain.applyRequest(() -> drive.withVelocityX(-MathUtil.applyDeadband(driver.getLeftY(), 0.1) * DrivetrainConstants.MaxSpeed) // Drive forward with
 																							 // negative Y (forward)
-			  .withVelocityY(-MathUtil.applyDeadband(driver.getLeftX(), 0.1) * DrivetrainConstatnts.MaxSpeed) // Drive left with negative X (left)
-			  .withRotationalRate(-MathUtil.applyDeadband(driver.getRightX(), 0.1) * DrivetrainConstatnts.MaxAngularRate) // Drive counterclockwise with negative X (left)
+			  .withVelocityY(-MathUtil.applyDeadband(driver.getLeftX(), 0.1) * DrivetrainConstants.MaxSpeed) // Drive left with negative X (left)
+			  .withRotationalRate(-MathUtil.applyDeadband(driver.getRightX(), 0.1) * DrivetrainConstants.MaxAngularRate) // Drive counterclockwise with negative X (left)
 		  ));
 		
 		new Trigger(driver::getAButton).whileTrue(drivetrain.applyRequest(() -> brake));

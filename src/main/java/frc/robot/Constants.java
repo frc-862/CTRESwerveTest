@@ -2,7 +2,6 @@ package frc.robot;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
-import frc.robot.subsytems.swerve.NewSwerve;
 import frc.robot.subsytems.swerve.Swerve;
 
 import com.ctre.phoenix6.configs.Slot0Configs;
@@ -15,7 +14,7 @@ import frc.robot.Constants.RobotMap.CAN;
 
 public class Constants {
 
-	public class DrivetrainConstatnts{
+	public class DrivetrainConstants{
 		public static final double MaxSpeed = 6; // 6 meters per second desired top speed
         private static final double WHEELBASE = TunerConstants.kFrontLeftXPosInches*2; //2 * x distance from center of robot to wheel
         public static final double MaxAngularRate = 2*Math.PI*( //convert to radians per second
@@ -112,7 +111,7 @@ public class Constants {
         private static final SwerveModuleConstants BackRight = ConstantCreator.createModuleConstants(
                 CAN.kBackRightSteerMotorId, CAN.kBackRightDriveMotorId, CAN.kBackRightEncoderId, kBackRightEncoderOffset, Units.inchesToMeters(kBackRightXPosInches), Units.inchesToMeters(kBackRightYPosInches), kInvertRightSide);
     
-        public static final NewSwerve DriveTrain = new NewSwerve(DrivetrainConstants, FrontLeft,
+        public static final Swerve DriveTrain = new Swerve(DrivetrainConstants, FrontLeft,
                 FrontRight, BackLeft, BackRight);
     }
 

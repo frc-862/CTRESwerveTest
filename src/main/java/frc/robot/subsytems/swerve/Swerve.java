@@ -52,9 +52,10 @@ public class Swerve extends SwerveDrivetrain implements Subsystem {
     public Swerve(SwerveDrivetrainConstants driveTrainConstants, double OdometryUpdateFrequency, SwerveModuleConstants... modules) {
         super(driveTrainConstants, OdometryUpdateFrequency, modules);
         this.limelights = new Limelight[] {
-            // new Limelight("limelight-back", "10.8.62.11"),
-            // new Limelight("limelight-front", "10.8.62.12")
+            new Limelight("limelight-back", "10.8.62.11"),
+            new Limelight("limelight-front", "10.8.62.12")
         };
+
 
         configurePathPlanner();
 
@@ -82,7 +83,24 @@ public class Swerve extends SwerveDrivetrain implements Subsystem {
             addVisionMeasurement(pose.toPose2d(), Timer.getFPGATimestamp() - Units.millisecondsToSeconds(pose.getLatency()) - VisionConstants.PROCESS_LATENCY);
         }
 
-        Logger.recordOutput("Swerve/yaw", m_yawGetter.getValueAsDouble());
+        LightningShuffleboard.setDouble("Swerve", "yaw", m_yawGetter.getValueAsDouble());
+        for (int i = 0; i < 4; ++i) {
+            //TODO: refresh these signals???
+            SwerveModule module = Modules[i];
+            Logger.recordOutput("Swerve/Module" + i + "/DriveRotations", module.getDriveMotor().getPosition().getValueAsDouble());
+            Logger.recordOutput("Swerve/Module" + i + "/DriveVelocityRPM", module.getDriveMotor().getVelocity().getValueAsDouble());
+            Logger.recordOutput("Swerve/Module" + i + "/DriveMotorVolts", module.getDriveMotor().getMotorVoltage().getValueAsDouble());
+            Logger.recordOutput("Swerve/Module" + i + "/DriveMotorCurrent", module.getDriveMotor().getStatorCurrent().getValueAsDouble());
+            Logger.recordOutput("Swerve/Module" + i + "/DriveTempC", module.getDriveMotor().getDeviceTemp().getValueAsDouble());
+            Logger.recordOutput("Swerve/Module" + i + "/SteerRotations", module.getSteerMotor().getPosition().getValueAsDouble());
+            Logger.recordOutput("Swerve/Module" + i + "/SteerVelocityRPM", module.getSteerMotor().getVelocity().getValueAsDouble());
+            Logger.recordOutput("Swerve/Module" + i + "/SteerMotorVolts", module.getSteerMotor().getMotorVoltage().getValueAsDouble());
+            Logger.recordOutput("Swerve/Module" + i + "/SteerMotorCurrent", module.getSteerMotor().getStatorCurrent().getValueAsDouble());
+            Logger.recordOutput("Swerve/Module" + i + "/SteerTempC", module.getSteerMotor().getDeviceTemp().getValueAsDouble());
+            Logger.recordOutput("Swerve/Module" + i + "/EncoderRotations", module.getCANcoder().getPosition().getValueAsDouble());
+            Logger.recordOutput("Swerve/Module" + i + "/EncoderRPM", module.getCANcoder().getVelocity().getValueAsDouble());
+            Logger.recordOutput("Swerve/Module" + i + "/EncoderMagnet", module.getCANcoder().getMagnetHealth().getValue().toString());
+        }
     }
 
     private void configurePathPlanner() {
